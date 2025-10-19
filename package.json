@@ -1,7 +1,7 @@
 {
   "name": "metools-app-mpface",
   "cnName": "微信封面生成器",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "微信封面生成器",
   "author": "公众号：一个橙子pro",
   "metools":{
