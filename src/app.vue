@@ -7,7 +7,7 @@
           <n-dialog-provider>
             <div class="metools-app-example max-w-[960px] mx-auto">
 
-              <div class="mt-2 max-h-[calc(100vh-260px)] overflow-auto">
+              <div class="mt-2 overflow-auto">
                 <WxCoverGenerator />
               </div>
             </div>
