@@ -5,9 +5,9 @@
       <n-message-provider>
         <n-notification-provider>
           <n-dialog-provider>
-            <div class="metools-app-example max-w-[960px] mx-auto">
+            <div class="metools-app-example mx-auto">
 
-              <div class="mt-2 overflow-auto">
+              <div class="mt-2 overflow-auto h-screen">
                 <WxCoverGenerator />
               </div>
             </div>

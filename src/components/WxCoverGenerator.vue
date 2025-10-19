@@ -3,7 +3,7 @@
     <!-- 顶部：文案设置 -->
     <n-card size="small" class="w-full" title="文案设置">
       <div class="flex flex-col gap-2">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
+        <div class="grid grid-cols-2 gap-3">
           <!-- 左侧：主标题和副标题 -->
           <div class="space-y-3">
             <div class="grid grid-cols-3 gap-3 items-center">
@@ -280,12 +280,12 @@ const textColor = computed({
 })
 
 // 背景样式与模板
-const templateType = ref<'gradient' | 'block' | 'image-overlay' | 'white-card'>('gradient')
+const templateType = ref<'gradient' | 'block' | 'image-overlay' | 'white-card'>('white-card')
 const templateOptions = [
-  { label: '简约渐变（推荐）', value: 'gradient' },
+  { label: '白色圆角卡片（推荐）', value: 'white-card' },
+  { label: '简约渐变', value: 'gradient' },
   { label: '左侧强调色块', value: 'block' },
   { label: '图片背景+暗色蒙版', value: 'image-overlay' },
-  { label: '白色圆角卡片', value: 'white-card' },
 ]
 const bgColor1 = ref('#06beb6')
 const bgColor2 = ref('#48b1bf')
