@@ -1,10 +1,45 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
   <defs>
-    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#4F46E5;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#7C3AED;stop-opacity:1" />
+    <!-- 背景渐变 -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#07c160;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06ad56;stop-opacity:1" />
     </linearGradient>
+    
+    <!-- 卡片渐变 -->
+    <linearGradient id="cardGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.95" />
+      <stop offset="100%" style="stop-color:#f8f9fa;stop-opacity:0.9" />
+    </linearGradient>
+    
+    <!-- 文字阴影 -->
+    <filter id="textShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
   </defs>
-  <rect width="64" height="64" rx="12" fill="url(#gradient)"/>
-  <text x="32" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="white">M</text>
+  
+  <!-- 背景 -->
+  <rect width="64" height="64" rx="12" fill="url(#bgGradient)"/>
+  
+  <!-- 白色圆角卡片 -->
+  <rect x="8" y="12" width="48" height="40" rx="6" fill="url(#cardGradient)" stroke="#e5e7eb" stroke-width="0.5"/>
+  
+  <!-- 主标题文字 -->
+  <text x="32" y="28" font-family="Arial, sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#1f2937" filter="url(#textShadow)">微信封面</text>
+  
+  <!-- 副标题文字 -->
+  <text x="32" y="38" font-family="Arial, sans-serif" font-size="6" font-weight="normal" text-anchor="middle" fill="#6b7280">生成器</text>
+  
+  <!-- 装饰性图标 - 相机/图片图标 -->
+  <g transform="translate(26, 42)">
+    <!-- 相机机身 -->
+    <rect x="2" y="4" width="8" height="6" rx="1" fill="#9ca3af" stroke="#6b7280" stroke-width="0.5"/>
+    <!-- 镜头 -->
+    <circle cx="6" cy="7" r="2" fill="#374151" stroke="#1f2937" stroke-width="0.5"/>
+    <!-- 闪光灯 -->
+    <rect x="1" y="2" width="2" height="1" rx="0.5" fill="#fbbf24"/>
+  </g>
+  
+  <!-- 装饰性元素 - 渐变色彩条 -->
+  <rect x="12" y="50" width="40" height="2" rx="1" fill="url(#bgGradient)"/>
 </svg>
