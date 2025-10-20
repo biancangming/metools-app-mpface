@@ -1,9 +1,9 @@
 <template>
-  <div class="w-full max-w-7xl mx-auto flex flex-col lg:flex-row gap-2 min-h-screen h-screen overflow-hidden">
+  <div class="w-full max-w-7xl mx-auto flex flex-row gap-2 min-h-screen h-screen overflow-hidden">
     <!-- 左侧：文案设置 + Canvas -->
     <div class="flex-1 flex flex-col gap-3 h-full min-w-0 lg:min-w-[400px]">
       <!-- 文案设置 -->
-      <n-card size="small" class="w-full" title="文案设置">
+      <n-card size="small" class="w-full">
       <div class="space-y-2">
         <!-- 主标题 -->
         <div class="space-y-1">
@@ -89,8 +89,8 @@
     </n-card>
 
       <!-- Canvas预览区 -->
-      <n-card size="small" class="w-full flex-1 flex flex-col" title="实时预览">
-        <div class="p-1 bg-neutral-100 dark:bg-neutral-800 rounded border border-neutral-200 dark:border-neutral-700 flex-1 flex items-center justify-center">
+      <n-card size="small" class="w-full flex-1 flex flex-col">
+        <div ref="previewContainerRef" class="p-1 bg-neutral-100 dark:bg-neutral-800 rounded border border-neutral-200 dark:border-neutral-700 flex-1 flex items-center justify-center min-w-0">
           <div class="w-full flex justify-center">
             <div class="relative">
               <canvas ref="canvasRef" class="rounded-md shadow-sm" />
@@ -113,7 +113,7 @@
     </div>
 
     <!-- 右侧：背景设置 -->
-    <div class="w-full lg:w-[300px] lg:min-w-[300px] shrink-0 h-full">
+    <div class="w-[300px] min-w-[300px] shrink-0 h-full">
       <n-card size="small" class="w-full h-full" title="背景设置">
       <div class="space-y-2 h-full flex flex-col">
         <!-- 风格模板 -->
@@ -855,8 +855,34 @@ watch([title, subtitle, author, titleSize, subtitleSize, authorSize, titleColor,
   nextTick(draw)
 }, { immediate: true })
 
+// 预览容器自适应：根据父元素宽度调整预览宽度
+const previewContainerRef = ref<HTMLElement | null>(null)
+let ro: ResizeObserver | null = null
+
 onMounted(() => {
+  const el = previewContainerRef.value
+  if (el) {
+    ro = new ResizeObserver((entries) => {
+      const entry = entries[0]
+      if (!entry) return
+      const cw = Math.floor(entry.contentRect.width)
+      if (cw > 0) {
+        // 将预览宽度限制在父宽以内，且不超过默认最大值
+        const maxPreview = 660
+        previewWidth.value = Math.max(240, Math.min(cw - 16, maxPreview))
+        nextTick(draw)
+      }
+    })
+    ro.observe(el)
+  }
   draw()
+})
+
+onBeforeUnmount(() => {
+  if (ro) {
+    ro.disconnect()
+    ro = null
+  }
 })
 </script>
 
