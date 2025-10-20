@@ -1,10 +1,10 @@
 <template>
-  <div class="w-full max-w-7xl mx-auto flex flex-col lg:flex-row gap-3 min-h-screen h-screen overflow-hidden">
+  <div class="w-full max-w-7xl mx-auto flex flex-col lg:flex-row gap-2 min-h-screen h-screen overflow-hidden">
     <!-- 左侧：文案设置 + Canvas -->
     <div class="flex-1 flex flex-col gap-3 h-full min-w-0 lg:min-w-[400px]">
       <!-- 文案设置 -->
       <n-card size="small" class="w-full" title="文案设置">
-      <div class="space-y-3">
+      <div class="space-y-2">
         <!-- 主标题 -->
         <div class="space-y-1">
           <div class="text-xs text-gray-500">主标题</div>
@@ -13,20 +13,21 @@
             placeholder="例如：本周精选 | AI 工具评测"
             size="small"
           />
-          <div class="flex gap-2 items-center">
-            <input 
-              type="number" 
-              v-model.number="formData.titleSize"
-              :min="96"
-              :max="136"
+          <div class="grid grid-cols-2 gap-2 items-center">
+            <n-input-number
+              v-model:value="formData.titleSize"
+              :min="24"
+              :max="160"
               :step="2"
-              class="w-16 px-2 py-1 text-sm border rounded"
+              size="small"
+              class="w-full"
               placeholder="字号"
             />
-            <input 
-              type="color" 
-              v-model="formData.titleColor"
-              class="w-12 h-8 rounded cursor-pointer"
+            <n-color-picker
+              v-model:value="formData.titleColor"
+              :modes="['hex']"
+              size="small"
+              class="w-full"
             />
           </div>
         </div>
@@ -39,20 +40,21 @@
             placeholder="副标题（可选）"
             size="small"
           />
-          <div class="flex gap-2 items-center">
-            <input 
-              type="number" 
-              v-model.number="formData.subtitleSize"
-              :min="18"
-              :max="96"
+          <div class="grid grid-cols-2 gap-2 items-center">
+            <n-input-number
+              v-model:value="formData.subtitleSize"
+              :min="12"
+              :max="120"
               :step="1"
-              class="w-16 px-2 py-1 text-sm border rounded"
+              size="small"
+              class="w-full"
               placeholder="字号"
             />
-            <input 
-              type="color" 
-              v-model="formData.subtitleColor"
-              class="w-12 h-8 rounded cursor-pointer"
+            <n-color-picker
+              v-model:value="formData.subtitleColor"
+              :modes="['hex']"
+              size="small"
+              class="w-full"
             />
           </div>
         </div>
@@ -65,20 +67,21 @@
             placeholder="署名/来源（可选）"
             size="small"
           />
-          <div class="flex gap-2 items-center">
-            <input 
-              type="number" 
-              v-model.number="formData.authorSize"
-              :min="12"
-              :max="32"
+          <div class="grid grid-cols-2 gap-2 items-center">
+            <n-input-number
+              v-model:value="formData.authorSize"
+              :min="10"
+              :max="64"
               :step="1"
-              class="w-16 px-2 py-1 text-sm border rounded"
+              size="small"
+              class="w-full"
               placeholder="字号"
             />
-            <input 
-              type="color" 
-              v-model="formData.authorColor"
-              class="w-12 h-8 rounded cursor-pointer"
+            <n-color-picker
+              v-model:value="formData.authorColor"
+              :modes="['hex']"
+              size="small"
+              class="w-full"
             />
           </div>
         </div>
@@ -100,7 +103,7 @@
         </div>
         
         <!-- 导出按钮 -->
-        <div class="flex gap-3 items-center justify-center mt-3">
+        <div class="flex gap-3 items-center justify-center mt-2">
           <n-button type="primary" @click="exportPNG">
             导出 PNG
           </n-button>
@@ -112,7 +115,7 @@
     <!-- 右侧：背景设置 -->
     <div class="w-full lg:w-[300px] lg:min-w-[300px] shrink-0 h-full">
       <n-card size="small" class="w-full h-full" title="背景设置">
-      <div class="space-y-3 h-full flex flex-col">
+      <div class="space-y-2 h-full flex flex-col">
         <!-- 风格模板 -->
         <div class="space-y-1">
           <div class="text-xs text-gray-500">风格模板</div>
@@ -442,7 +445,7 @@ const outputWidth = computed(() => {
 const outputHeight = computed(() => Math.round(outputWidth.value / 2.35))
 
 // 预览尺寸（固定 470px 宽）
-const previewWidth = ref(760)
+const previewWidth = ref(660)
 const previewHeight = computed(() => Math.round(previewWidth.value / 2.35))
 
 const margin = ref(48) // 安全边距
