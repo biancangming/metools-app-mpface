@@ -1,112 +1,94 @@
 <template>
-  <div class="w-full flex flex-col gap-2">
-    <!-- 顶部：文案设置 -->
-    <n-card size="small" class="w-full" title="文案设置">
-      <div class="flex flex-col gap-2">
-        <div class="grid grid-cols-2 gap-3">
-          <!-- 左侧：主标题和副标题 -->
-          <div class="space-y-3">
-            <div class="grid grid-cols-3 gap-3 items-center">
-              <div class="text-xs text-gray-500">主标题</div>
-              <div class="col-span-2 space-y-2">
-                <n-input 
-                  v-model:value="formData.title" 
-                  placeholder="例如：本周精选 | AI 工具评测"
-                  size="small"
-                />
-                <div class="flex gap-2 items-center">
-                  <div class="text-xs text-gray-500 w-8">字号</div>
-                  <n-slider 
-                    v-model:value="formData.titleSize" 
-                    :min="96" 
-                    :max="136" 
-                    :step="2" 
-                    size="small"
-                  />
-                </div>
-                <div class="flex gap-2 items-center">
-                  <div class="text-xs text-gray-500 w-8">颜色</div>
-                  <n-color-picker 
-                    v-model:value="formData.titleColor" 
-                    :actions="['clear']"
-                    size="small"
-                  />
-                </div>
-              </div>
-            </div>
-            
-            <div class="grid grid-cols-3 gap-3 items-center">
-              <div class="text-xs text-gray-500">副标题</div>
-              <div class="col-span-2 space-y-2">
-                <n-input 
-                  v-model:value="formData.subtitle" 
-                  placeholder="副标题（可选）"
-                  size="small"
-                />
-                <div class="flex gap-2 items-center">
-                  <div class="text-xs text-gray-500 w-8">字号</div>
-                  <n-slider 
-                    v-model:value="formData.subtitleSize" 
-                    :min="18" 
-                    :max="96" 
-                    :step="1" 
-                    size="small"
-                  />
-                </div>
-                <div class="flex gap-2 items-center">
-                  <div class="text-xs text-gray-500 w-8">颜色</div>
-                  <n-color-picker 
-                    v-model:value="formData.subtitleColor" 
-                    :actions="['clear']"
-                    size="small"
-                  />
-                </div>
-              </div>
-            </div>
+  <div class="w-full max-w-7xl mx-auto flex flex-col lg:flex-row gap-3 min-h-screen h-screen overflow-hidden">
+    <!-- 左侧：文案设置 + Canvas -->
+    <div class="flex-1 flex flex-col gap-3 h-full min-w-0 lg:min-w-[400px]">
+      <!-- 文案设置 -->
+      <n-card size="small" class="w-full" title="文案设置">
+      <div class="space-y-3">
+        <!-- 主标题 -->
+        <div class="space-y-1">
+          <div class="text-xs text-gray-500">主标题</div>
+          <n-input 
+            v-model:value="formData.title" 
+            placeholder="例如：本周精选 | AI 工具评测"
+            size="small"
+          />
+          <div class="flex gap-2 items-center">
+            <input 
+              type="number" 
+              v-model.number="formData.titleSize"
+              :min="96"
+              :max="136"
+              :step="2"
+              class="w-16 px-2 py-1 text-sm border rounded"
+              placeholder="字号"
+            />
+            <input 
+              type="color" 
+              v-model="formData.titleColor"
+              class="w-12 h-8 rounded cursor-pointer"
+            />
           </div>
-          
-          <!-- 右侧：署名和颜色 -->
-          <div class="space-y-3">
-            <div class="grid grid-cols-3 gap-3 items-center">
-              <div class="text-xs text-gray-500">署名/来源</div>
-              <div class="col-span-2 space-y-2">
-                <n-input 
-                  v-model:value="formData.author" 
-                  placeholder="署名/来源（可选）"
-                  size="small"
-                />
-                <div class="flex gap-2 items-center">
-                  <div class="text-xs text-gray-500 w-8">字号</div>
-                  <n-slider 
-                    v-model:value="formData.authorSize" 
-                    :min="12" 
-                    :max="32" 
-                    :step="1" 
-                    size="small"
-                  />
-                </div>
-                <div class="flex gap-2 items-center">
-                  <div class="text-xs text-gray-500 w-8">颜色</div>
-                  <n-color-picker 
-                    v-model:value="formData.authorColor" 
-                    :actions="['clear']"
-                    size="small"
-                  />
-                </div>
-              </div>
-            </div>
+        </div>
+        
+        <!-- 副标题 -->
+        <div class="space-y-1">
+          <div class="text-xs text-gray-500">副标题</div>
+          <n-input 
+            v-model:value="formData.subtitle" 
+            placeholder="副标题（可选）"
+            size="small"
+          />
+          <div class="flex gap-2 items-center">
+            <input 
+              type="number" 
+              v-model.number="formData.subtitleSize"
+              :min="18"
+              :max="96"
+              :step="1"
+              class="w-16 px-2 py-1 text-sm border rounded"
+              placeholder="字号"
+            />
+            <input 
+              type="color" 
+              v-model="formData.subtitleColor"
+              class="w-12 h-8 rounded cursor-pointer"
+            />
+          </div>
+        </div>
+        
+        <!-- 署名/来源 -->
+        <div class="space-y-1">
+          <div class="text-xs text-gray-500">署名/来源</div>
+          <n-input 
+            v-model:value="formData.author" 
+            placeholder="署名/来源（可选）"
+            size="small"
+          />
+          <div class="flex gap-2 items-center">
+            <input 
+              type="number" 
+              v-model.number="formData.authorSize"
+              :min="12"
+              :max="32"
+              :step="1"
+              class="w-16 px-2 py-1 text-sm border rounded"
+              placeholder="字号"
+            />
+            <input 
+              type="color" 
+              v-model="formData.authorColor"
+              class="w-12 h-8 rounded cursor-pointer"
+            />
           </div>
         </div>
       </div>
     </n-card>
 
-    <!-- 底部：预览面板 -->
-    <n-card size="small" class="w-full" title="实时预览">
-      <div class="w-full">
-        <!-- 画布容器：保证在暗色主题下也可见边框 -->
-        <div class="p-2 bg-neutral-100 dark:bg-neutral-800 rounded-md border border-neutral-200 dark:border-neutral-700">
+      <!-- Canvas预览区 -->
+      <n-card size="small" class="w-full flex-1 flex flex-col" title="实时预览">
+        <div class="p-1 bg-neutral-100 dark:bg-neutral-800 rounded border border-neutral-200 dark:border-neutral-700 flex-1 flex items-center justify-center">
           <div class="w-full flex justify-center">
-            <!-- 固定预览宽度 470px（2.35:1）-->
             <div class="relative">
               <canvas ref="canvasRef" class="rounded-md shadow-sm" />
               <div class="absolute inset-0 pointer-events-none">
@@ -116,102 +98,82 @@
             </div>
           </div>
         </div>
-      </div>
-    </n-card>
-
-    <!-- 底部：背景与输出设置 -->
-    <n-card size="small" class="w-full" title="背景与输出设置">
-      <div class="flex flex-col gap-2">
-        <div class="space-y-2">
-          <div class="grid grid-cols-4 gap-3 items-center">
-            <div class="text-xs text-gray-500">风格模板</div>
-            <div class="col-span-3">
-              <n-select v-model:value="templateType" :options="templateOptions" size="small" />
-            </div>
-          </div>
-
-          <!-- 渐变或色块模板下提供背景模式（预设/自定义）的切换，默认预设模式 -->
-          <div v-if="templateType === 'gradient' || templateType === 'block' || templateType === 'white-card'" class="grid grid-cols-4 gap-3 items-center">
-            <div class="text-xs text-gray-500">背景模式</div>
-            <div class="col-span-3">
-              <n-radio-group v-model:value="backgroundMode" size="small">
-                <n-radio value="preset">预设模式</n-radio>
-                <n-radio value="custom">自定义模式</n-radio>
-              </n-radio-group>
-            </div>
-          </div>
-
-          <!-- 自定义颜色仅在非图片模式且（非渐变或渐变的自定义模式）显示 -->
-          <div v-if="templateType !== 'image-overlay' && (templateType !== 'gradient' || backgroundMode === 'custom') && (templateType !== 'white-card' || backgroundMode === 'custom')" class="grid grid-cols-4 gap-3 items-center">
-            <div class="text-xs text-gray-500">渐变颜色 1</div>
-            <div class="col-span-3">
-              <n-color-picker v-model:value="bgColor1" :modes="['hex']" :show-alpha="false" size="small" />
-            </div>
-          </div>
-          <div v-if="templateType !== 'image-overlay' && (templateType !== 'gradient' || backgroundMode === 'custom') && (templateType !== 'white-card' || backgroundMode === 'custom')" class="grid grid-cols-4 gap-3 items-center">
-            <div class="text-xs text-gray-500">渐变颜色 2</div>
-            <div class="col-span-3">
-              <n-color-picker v-model:value="bgColor2" :modes="['hex']" :show-alpha="false" size="small" />
-            </div>
-          </div>
-
-          <div v-if="templateType === 'block'" class="grid grid-cols-4 gap-3 items-center">
-            <div class="text-xs text-gray-500">强调色</div>
-            <div class="col-span-3">
-              <n-color-picker v-model:value="accentColor" size="small" />
-            </div>
-          </div>
-
-          <!-- 白色卡片模板的卡片颜色设置 -->
-          <div v-if="templateType === 'white-card'" class="grid grid-cols-4 gap-3 items-center">
-            <div class="text-xs text-gray-500">卡片颜色</div>
-            <div class="col-span-3">
-              <n-color-picker v-model:value="accentColor" size="small" />
-            </div>
-          </div>
-          <div v-if="templateType === 'image-overlay'" class="grid grid-cols-4 gap-3 items-center">
-            <div class="text-xs text-gray-500">背景图片</div>
-            <div class="col-span-3">
-              <input type="file" accept="image/*" @change="onImageChange" class="text-xs" />
-              <div class="mt-2 flex items-center gap-2">
-                <span class="text-xs text-gray-500">蒙版强度</span>
-                <n-slider v-model:value="overlayAlpha" :min="0" :max="0.8" :step="0.02" size="small" />
-              </div>
-            </div>
-          </div>
-
-          <!-- 预设背景仅在渐变 + 预设模式下显示，且不会影响自定义颜色选择器的值 -->
-          <div v-if="(templateType === 'gradient' || templateType === 'white-card') && backgroundMode === 'preset'">
-            <div class="mb-1 text-xs text-gray-500">预设背景</div>
-            <div class="overflow-x-auto">
-              <div class="flex gap-3 py-1">
-                <button
-                  v-for="(p, idx) in gradientPresets"
-                  :key="idx"
-                  type="button"
-                  class="flex flex-col items-center shrink-0"
-                  @click="applyPreset(idx)"
-                >
-                  <div
-                    class="w-10 h-10 rounded-full border border-neutral-300"
-                    :class="idx === selectedPresetIndex ? 'ring-2 ring-emerald-500' : ''"
-                    :style="{ background: p.style }"
-                  ></div>
-                  <div class="mt-1 text-[10px] text-gray-600 w-20 truncate text-center">{{ p.title }}</div>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="flex gap-3 mt-2 items-center justify-center">
+        
+        <!-- 导出按钮 -->
+        <div class="flex gap-3 items-center justify-center mt-3">
           <n-button type="primary" @click="exportPNG">
             导出 PNG
           </n-button>
           <span class="text-xs text-gray-400">(导出后会自动删除辅助线)</span>
         </div>
+      </n-card>
+    </div>
+
+    <!-- 右侧：背景设置 -->
+    <div class="w-full lg:w-[300px] lg:min-w-[300px] shrink-0 h-full">
+      <n-card size="small" class="w-full h-full" title="背景设置">
+      <div class="space-y-3 h-full flex flex-col">
+        <!-- 风格模板 -->
+        <div class="space-y-1">
+          <div class="text-xs text-gray-500">风格模板</div>
+          <n-select v-model:value="templateType" :options="templateOptions" size="small" />
+        </div>
+
+        <!-- 背景模式 -->
+        <div v-if="templateType === 'gradient' || templateType === 'block' || templateType === 'white-card'" class="space-y-1">
+          <div class="text-xs text-gray-500">背景模式</div>
+          <n-radio-group v-model:value="backgroundMode" size="small">
+            <n-radio value="preset">预设</n-radio>
+            <n-radio value="custom">自定义</n-radio>
+          </n-radio-group>
+        </div>
+
+        <!-- 自定义颜色 -->
+        <div v-if="templateType !== 'image-overlay' && (templateType !== 'gradient' || backgroundMode === 'custom') && (templateType !== 'white-card' || backgroundMode === 'custom')" class="space-y-1">
+          <div class="text-xs text-gray-500">渐变颜色</div>
+          <div class="grid grid-cols-2 gap-2">
+            <input type="color" v-model="bgColor1" class="w-full h-8 rounded" />
+            <input type="color" v-model="bgColor2" class="w-full h-8 rounded" />
+          </div>
+        </div>
+
+        <!-- 强调色/卡片颜色 -->
+        <div v-if="templateType === 'block' || templateType === 'white-card'" class="space-y-1">
+          <div class="text-xs text-gray-500">{{ templateType === 'block' ? '强调色' : '卡片颜色' }}</div>
+          <input type="color" v-model="accentColor" class="w-full h-8 rounded" />
+        </div>
+
+        <!-- 背景图片 -->
+        <div v-if="templateType === 'image-overlay'" class="space-y-1">
+          <div class="text-xs text-gray-500">背景图片</div>
+          <input type="file" accept="image/*" @change="onImageChange" class="text-xs w-full" />
+          <div class="space-y-1">
+            <div class="text-xs text-gray-500">蒙版强度</div>
+            <n-slider v-model:value="overlayAlpha" :min="0" :max="0.8" :step="0.02" size="small" />
+          </div>
+        </div>
+
+        <!-- 预设背景 -->
+        <div v-if="(templateType === 'gradient' || templateType === 'white-card') && backgroundMode === 'preset'" class="space-y-1 flex-1 flex flex-col">
+          <div class="text-xs text-gray-500">预设背景</div>
+          <div class="flex-1 overflow-y-auto max-h-[calc(100vh-269px)]">
+            <div class="grid grid-cols-4 gap-1">
+              <button
+                v-for="(p, idx) in gradientPresets"
+                :key="idx"
+                type="button"
+                @click="applyPreset(idx)"
+                class="w-8 h-8 rounded-full border-2 transition-all"
+                :class="idx === selectedPresetIndex ? 'border-emerald-500 scale-110' : 'border-gray-300'"
+                :style="{ background: p.style }"
+                :title="p.title"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </n-card>
+    </div>
   </div>
 </template>
 
@@ -225,10 +187,10 @@ const backgroundMode = ref<'preset' | 'custom'>('preset')
 
 // 文案状态 - 使用formData统一管理
 const formData = reactive({
-  title: '一周观点 | AI工具精选',
-  subtitle: '深度评测 · 趋势观察 · 实用技巧',
+  title: '公众号：一个橙子pro',
+  subtitle: '有兴趣关注我的公众号',
   author: '一个橙子pro',
-  titleSize: 96,
+  titleSize: 76,
   subtitleSize: 36,
   authorSize: 22,
   titleColor: '#111111',
@@ -489,10 +451,12 @@ const margin = ref(48) // 安全边距
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 let bgImg: HTMLImageElement | null = null
 
+
 // 指南样式（安全区）使用字符串形式，避免 HTMLAttributes 类型不匹配报错
 const guideStyleStr = computed(() => `position:absolute;left:${margin.value}px;right:${margin.value}px;top:${margin.value}px;bottom:${margin.value}px;`)
 
 // 重置功能已移除
+
 
 // 图片选择
 function onImageChange(e: Event) {
